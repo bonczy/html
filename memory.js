@@ -39,14 +39,13 @@ var turnCounter = 0;
 var visible_nr;
 var lock = false;
 var pairsLeft = 6;
-var board = document.getEl
-///////////////////////////////////
 
-ementsByClassName('board')[0];
+///////////////////////////////////
+var board = document.getElementsByClassName('board')[0];
 
 function start()
 {
-	alert(board);
+	//alert(board);
 	for (i=0;i<12;i++)
 	{
 	addCard(i);	
@@ -82,12 +81,19 @@ board.appendChild(element);
 //////////////////////////////////////////////
 function revealCard(nr)
 {
+	if (nr==visible_nr)
+			{
+			//	alert('powtórzona karta');	
+			}
+		else
+		
+	{
 	var opacityValue = $('#c'+nr).css('opacity');
 	
 	//alert('Opacity: '+opacityValue);
 	
 	if (opacityValue != 0 && lock == false)
-	{
+		{
 		lock = true;
 		
 		//alert(nr);
@@ -99,38 +105,39 @@ function revealCard(nr)
 		$('#c'+nr).removeClass('card');
 		
 		if(oneVisible == false)
-		{
+			{
 			//first card
 			
 			oneVisible = true;
 			visible_nr = nr;
 			lock = false;
-		}
-		else
-		{
-			//second card
-			
-			if(cards[visible_nr] == cards[nr])
-			{
-				//alert("para");
-				
-				setTimeout(function() { hide2Cards(nr, visible_nr) }, 750);
-				
 			}
 			else
 			{
+			//second card
+			
+				if(cards[visible_nr] == cards[nr])
+				{
+				//alert("para");
+				
+					setTimeout(function() { hide2Cards(nr, visible_nr) }, 750);
+				
+				}
+				else
+				{
 				//alert("pudło");
 				
-				setTimeout(function() { restore2Cards(nr, visible_nr) }, 1000);
-			}
+					setTimeout(function() { restore2Cards(nr, visible_nr) }, 1000);
+				}
 			
-			turnCounter++;
-			$('.score').html('Turn counter: '+turnCounter);
-			oneVisible = false;
-		}
+				turnCounter++;
+				$('.score').html('Turn counter: '+turnCounter);
+				oneVisible = false;
+			}
 		
-	}
+		}
 	
+}
 }
 
 function hide2Cards(nr1, nr2)
