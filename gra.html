@@ -6,9 +6,12 @@
 	<title>Gwent Memory Test</title>
 	<meta name="description" content="JS Memory Game inspired by Gwent">
 	<meta name="keywords" content="javascript, jQuery, game, gwent, memory">
-	<meta name="author" content="Merek" >	
+	<meta name="author" content="MZ">
+	
 	<meta http-equiv="X-Ua-Compatible" content="IE=edge,chrome=1">
+	
 	<link rel="stylesheet" href="main.css">
+
 	<link href="https://fonts.googleapis.com/css?family=Lobster&amp;subset=latin-ext" rel="stylesheet">
 	
 	<!--[if lt IE 9]>
@@ -17,12 +20,12 @@
 
 </head>
 
-<body onload="start()"> <!--dałem funkcję startującą-->
+<body onload='start()'>
 
 	<header>
 	
 		<h1>Gwent Memory Test</h1>
-<h6>		<p>Inspired by <a href="https://www.playgwent.com/pl" target="_blank">Gwent - The Witcher Card Game</a></p></h6>
+		<p>Inspired by <a href="https://www.playgwent.com/pl" target="_blank">Gwent - The Witcher Card Game</a></p>
 	
 	</header>
 	
@@ -30,175 +33,33 @@
 	
 		<article>
 		
-			<div class="board"  id="b">   <!--dałem temu diwowi id i w js dostałem obiekt o takiej samej nazwie-->
-<!--					<div class="score">Turn counter: 0</div>			
--->			
-</div>
+			<div class="board">
+			
+				<!-- <div class="card" id="c0"></div> -->
+				<!-- <div class="card" id="c1"></div> -->
+				<!-- <div class="card" id="c2"></div> -->
+				<!-- <div class="card" id="c3"></div> -->
+				
+				<!-- <div class="card" id="c4"></div> -->
+				<!-- <div class="card" id="c5"></div> -->
+				<!-- <div class="card" id="c6"></div> -->
+				<!-- <div class="card" id="c7"></div> -->
+				
+				<!-- <div class="card" id="c8"></div> -->
+				<!-- <div class="card" id="c9"></div> -->
+				<!-- <div class="card" id="c10"></div> -->
+				<!-- <div class="card" id="c11"></div> -->
+				
+				<!-- <div class="score">Turn counter: 0</div> -->
+			
+			</div>
 		
 		</article>
 	
 	</main>
 	
 	<script src="jquery-3.2.1.min.js"></script>
-	<script >
-	var cards = ["ciri.png", "geralt.png", "jaskier.png", "jaskier.png", "iorweth.png", "triss.png", "geralt.png", "yen.png", "ciri.png", "triss.png", "yen.png", "iorweth.png"];
-
-var oneVisible = false;
-var turnCounter = 0;
-var visible_nr;
-var lock = false;
-var pairsLeft = 6;
-
-function start()
-{
-	//alert("start");
-	for (i=0;i<12;i++)
-	{
-	addCard(i);	
-	};
-	addScore();
-}
-
-
-function addCard(nr) 
-{
-karta = addElement('div','c'+nr,'card');
-karta.addEventListener("click", function() { revealCard(nr); });
-showElementOnBoard(karta);
-}
-function addScore() {
-score = 	addElement('div',null,'score');
-score.innerHTML='Turn counter: 0';
-}
-
-
-function showElementOnBoard(element) 
-{
-//alert(element);
-b.appendChild(element);
-}
-
-
-function addElement(typ,identyfikator,klasa) {
-	//alert('start karta')
-	
-	var newElement = document.createElement(typ);
-	newElement.setAttribute("id",identyfikator);
- 	newElement.setAttribute("class",klasa);
-	return newElement;
-}
-///////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function revealCard(nr)
-{
-	var opacityValue = $('#c'+nr).css('opacity');
-	
-	//alert('Opacity: '+opacityValue);
-	
-	if (opacityValue != 0 && lock == false)
-	{
-		lock = true;
-		
-		//alert(nr);
-	
-		var obraz = "url(img/" + cards[nr] + ")";
-		
-		$('#c'+nr).css('background-image', obraz);
-		$('#c'+nr).addClass('cardA');
-		$('#c'+nr).removeClass('card');
-		
-		if(oneVisible == false)
-		{
-			//first card
-			
-			oneVisible = true;
-			visible_nr = nr;
-			lock = false;
-		}
-		else
-		{
-			//second card
-			
-			if(cards[visible_nr] == cards[nr])
-			{
-				//alert("para");
-				
-				setTimeout(function() { hide2Cards(nr, visible_nr) }, 750);
-				
-			}
-			else
-			{
-				//alert("pudło");
-				
-				setTimeout(function() { restore2Cards(nr, visible_nr) }, 1000);
-			}
-			
-			turnCounter++;
-			$('.score').html('Turn counter: '+turnCounter);
-			oneVisible = false;
-		}
-		
-	}
-	
-}
-
-function hide2Cards(nr1, nr2)
-{
-	$('#c'+nr1).css('opacity', '0');
-	$('#c'+nr2).css('opacity', '0');
-	
-	pairsLeft--;
-	
-	if(pairsLeft == 0)
-	{
-		$('.board').html('<h1>You win!<br>Done in '+turnCounter+' turns</h1>');
-	}
-	
-	lock = false;
-}
-
-function restore2Cards(nr1, nr2)
-{
-	$('#c'+nr1).css('background-image', 'url(img/karta.png)');
-	$('#c'+nr1).addClass('card');
-	$('#c'+nr1).removeClass('cardA');	
-
-	$('#c'+nr2).css('background-image', 'url(img/karta.png)');
-	$('#c'+nr2).addClass('card');
-	$('#c'+nr2).removeClass('cardA');
-	
-	lock = false;
-}
-
-</script>
+	<script src="memory.js"></script>
 	
 </body>
 </html>
